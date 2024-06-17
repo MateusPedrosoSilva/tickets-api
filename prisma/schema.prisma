@@ -18,6 +18,7 @@ model Event {
   name String
   description String
   date DateTime
+  price Float
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
