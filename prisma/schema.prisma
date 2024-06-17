@@ -14,11 +14,27 @@ datasource db {
 }
 
 model Event {
-  id String @id @default(uuid())
-  name String
+  id          String   @id @default(uuid())
+  name        String
   description String
-  date DateTime
-  price Float
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  date        DateTime
+  price       Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  Spot        Spot[]
+}
+
+model Spot {
+  id        String     @id @default(uuid())
+  name      String
+  eventId   String
+  status    SpotStatus
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  Event     Event      @relation(fields: [eventId], references: [id])
+}
+
+enum SpotStatus {
+  avaliable
+  reserved
 }
