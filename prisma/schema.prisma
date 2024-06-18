@@ -32,9 +32,27 @@ model Spot {
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   Event     Event      @relation(fields: [eventId], references: [id])
+  Ticket    Ticket[]
 }
 
 enum SpotStatus {
   avaliable
   reserved
+}
+
+model Ticket {
+  id         String     @id @default(uuid())
+  email      String
+  ticketKind TicketKind
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  spot       Spot       @relation(fields: [spotId], references: [id])
+  spotId     String
+
+  @@unique([spotId])
+}
+
+enum TicketKind {
+  full
+  half
 }
